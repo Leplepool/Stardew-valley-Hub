@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Gestor de Fazenda para Stardew Valley - Planeje sua produção agrícola">
+    <title>Stardew Hub Online | Gestor de Fazenda</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main class="container">
+        <!-- Página: Agenda -->
+        <section id="pAgenda" class="page active" aria-label="Agenda de Produção">
+            <div class="card">
+                <h2>📅 Agenda de Produção</h2>
+                <p class="hint">Digite o que fez e o sistema calcula os prazos automaticamente.</p>
+                <form id="logForm" aria-label="Formulário de agendamento">
+                    <textarea 
+                        id="logIn" 
+                        rows="3" 
+                        placeholder="Ex: 'Plantei Melão dia 2'" 
+                        aria-label="Log de ações"
+                        required
+                    ></textarea>
+                    <button type="submit" class="btn btn-primary">Agendar Eventos</button>
+                </form>
+                <div id="calContainer" class="calendar" role="grid" aria-label="Calendário de eventos"></div>
+            </div>
+
+            <div class="card">
+                <h3>📂 Sincronizar com Save</h3>
+                <form id="importForm" aria-label="Importar arquivo de save">
+                    <input 
+                        type="file" 
+                        id="saveFile"
+                        accept=".xml" 
+                        aria-label="Arquivo XML do save game"
+                    >
+                    <button type="submit" class="btn btn-secondary">Importar</button>
+                </form>
+                <div id="importStatus" aria-live="polite" aria-atomic="true"></div>
+            </div>
+        </section>
+
+        <!-- Página: Wiki -->
+        <section id="pWiki" class="page hidden" aria-label="Wiki Inteligente">
+            <div class="card">
+                <h2>🔍 Wiki Inteligente</h2>
+                <input 
+                    type="search"
+                    id="wIn" 
+                    placeholder="Buscar item (ex: Carambola, Abigail...)" 
+                    aria-label="Buscar na wiki"
+                    aria-describedby="wikiHint"
+                >
+                <small id="wikiHint">Mínimo 3 caracteres</small>
+                <div id="wikiOut" class="result wiki-result hidden" aria-live="polite" aria-atomic="true"></div>
+                <div id="wikiLoader" class="loader hidden" aria-label="Carregando"></div>
+            </div>
+
+            <div class="card">
+                <h2>💰 Calculadora de Processados</h2>
+                <form id="calcForm" aria-label="Calculadora de lucro">
+                    <input 
+                        id="baseP" 
+                        type="number" 
+                        placeholder="Preço Base do Item"
+                        min="0"
+                        step="1"
+                        aria-label="Preço base"
+                        required
+                    >
+                    <label>
+                        <input type="checkbox" id="artisan" aria-label="Aplicar profissão Artesão">
+                        Profissão Artesão (+40%)
+                    </label>
+                    <button type="submit" class="btn btn-primary">Comparar Lucro</button>
+                </form>
+                <div id="calcOut" class="result hidden" aria-live="polite" aria-atomic="true"></div>
+            </div>
+        </section>
+
+        <!-- Página: Centro Comunitário -->
+        <section id="pCentro" class="page hidden" aria-label="Guia do Centro Comunitário">
+            <div class="card">
+                <h2>🏢 Guia do Centro Comunitário</h2>
+                <label for="estSel">Selecione a estação:</label>
+                <select id="estSel" aria-label="Filtrar por estação">
+                    <option value="">-- Selecione --</option>
+                    <option value="Primavera">Primavera</option>
+                    <option value="Verão">Verão</option>
+                    <option value="Outono">Outono</option>
+                    <option value="Inverno">Inverno</option>
+                </select>
+                <div id="ccList" role="list"></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Navegação Flutuante -->
+    <nav class="nav" role="tablist" aria-label="Navegação principal">
+        <button 
+            class="nav-item active" 
+            data-page="pAgenda" 
+            role="tab" 
+            aria-selected="true"
+            aria-controls="pAgenda"
+        >
+            📅 Agenda
+        </button>
+        <button 
+            class="nav-item" 
+            data-page="pWiki" 
+            role="tab" 
+            aria-selected="false"
+            aria-controls="pWiki"
+        >
+            🔍 Wiki
+        </button>
+        <button 
+            class="nav-item" 
+            data-page="pCentro" 
+            role="tab" 
+            aria-selected="false"
+            aria-controls="pCentro"
+        >
+            🏢 Centro
+        </button>
+    </nav>
+
+    <script src="config.js"></script>
+    <script src="storage.js"></script>
+    <script src="ui.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
